@@ -1,0 +1,14 @@
+{
+  "name": "sentiment-project",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "openai": "^7.54.0"
+  }
+}

@@ -1,0 +1,270 @@
+/* public/css/blobs.css */
+/* 목적: 참고 디자인의 5가지 개성 있는 컬러 블롭 카드 및 장식 요소 모양을 정의합니다. */
+
+/* ==========================================================================
+   카드 1: 노랑 구름 카드 (.card--yellow)
+   ========================================================================== */
+.card--yellow {
+  background-color: var(--yellow);
+  border-radius: 48px;
+  min-height: 180px;
+}
+
+/* 구름 느낌의 좌우 볼록한 돌기 */
+.card--yellow::before,
+.card--yellow::after {
+  content: "";
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background-color: var(--yellow);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.card--yellow::before {
+  left: -14px;
+}
+
+.card--yellow::after {
+  right: -14px;
+}
+
+/* ==========================================================================
+   카드 2: 보라 물방울 카드 (.card--purple)
+   ========================================================================== */
+.card--purple {
+  background-color: var(--purple);
+  border-radius: 40px 40px 28px 28px;
+  padding-bottom: 44px; /* 아래 물방울 장식과의 여백 */
+}
+
+/* 오른쪽 상단 흰 눈알 장식 */
+.eyeball {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  width: 26px;
+  height: 18px;
+  background-color: var(--paper);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.eyeball__pupil {
+  width: 8px;
+  height: 8px;
+  background-color: var(--ink);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+/* 입력창 포커스 시 동공이 입력창 쪽으로 살짝 이동 */
+#card-input:focus-within .eyeball__pupil {
+  transform: translateY(3px);
+}
+
+/* 하단 뚝뚝 떨어지는 물방울 장식 */
+.drips {
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.drips i {
+  display: block;
+  background-color: var(--purple);
+  width: 18px;
+  border-radius: 0 0 10px 10px;
+}
+
+.drips i:nth-child(1) { height: 16px; width: 14px; }
+.drips i:nth-child(2) { height: 26px; width: 18px; }
+.drips i:nth-child(3) { height: 14px; width: 16px; }
+.drips i:nth-child(4) { height: 28px; width: 20px; }
+.drips i:nth-child(5) { height: 18px; width: 14px; }
+.drips i:nth-child(6) { height: 24px; width: 18px; }
+.drips i:nth-child(7) { height: 16px; width: 16px; }
+
+/* ==========================================================================
+   카드 3: 분홍 머그컵 카드 (.card--pink)
+   ========================================================================== */
+.card--pink {
+  background-color: var(--pink);
+  border-radius: 24px;
+  min-height: 190px;
+  position: relative;
+}
+
+/* 상단 흰 크림 흘러내림 장식 */
+.cream-drips {
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.cream-drips i {
+  display: block;
+  background-color: var(--paper);
+  width: 14px;
+  border-radius: 0 0 8px 8px;
+}
+
+.cream-drips i:nth-child(1) { height: 20px; }
+.cream-drips i:nth-child(2) { height: 32px; }
+.cream-drips i:nth-child(3) { height: 18px; }
+
+/* 양옆 머그 손잡이 (외부로 튀어나온 링 모양) */
+.card--pink::before,
+.card--pink::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 64px;
+  border: 10px solid var(--pink);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.card--pink::before {
+  left: -24px;
+  border-right: none;
+}
+
+.card--pink::after {
+  right: -24px;
+  border-left: none;
+}
+
+/* ==========================================================================
+   카드 4: 주황 리본 카드 (.card--orange)
+   ========================================================================== */
+.card--orange {
+  background-color: var(--orange);
+  /* 출렁이는 비대칭 곡선 형태 */
+  border-radius: 58% 42% 48% 52% / 22% 28% 24% 26%;
+  min-height: 180px;
+}
+
+/* 좌우 흰색 X 리본 장식 */
+.ribbon {
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.ribbon--left {
+  left: 12px;
+}
+
+.ribbon--right {
+  right: 12px;
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: var(--paper);
+  border-radius: 4px;
+}
+
+.ribbon::before {
+  transform: translateY(-50%) rotate(40deg);
+}
+
+.ribbon::after {
+  transform: translateY(-50%) rotate(-40deg);
+}
+
+/* ==========================================================================
+   카드 5: 청록 구름 카드 (.card--teal)
+   ========================================================================== */
+.card--teal {
+  background-color: var(--teal);
+  border-radius: 48px;
+  min-height: 160px;
+}
+
+.card--teal::before,
+.card--teal::after {
+  content: "";
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-color: var(--teal);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.card--teal::before {
+  left: -12px;
+}
+
+.card--teal::after {
+  right: -12px;
+}
+
+/* ==========================================================================
+   해바라기 표정 스티커 장식 (.sticker)
+   ========================================================================== */
+.sticker {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.25));
+}
+
+/* 카드 1 우측 하단 스티커 */
+.sticker--hero {
+  bottom: -18px;
+  right: 14px;
+  width: 68px;
+  height: 68px;
+  transform: rotate(8deg);
+}
+
+/* 카드 3 우측 상단 스티커 */
+.sticker--result {
+  top: -24px;
+  right: 12px;
+  width: 74px;
+  height: 74px;
+  transform: rotate(-6deg);
+}
+
+/* 로딩 중 흔들림 애니메이션 */
+@keyframes wiggle {
+  0%   { transform: rotate(-8deg); }
+  50%  { transform: rotate(8deg); }
+  100% { transform: rotate(-8deg); }
+}
+
+.sticker--wiggle {
+  animation: wiggle 0.6s infinite ease-in-out;
+}
+

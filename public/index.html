@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마음 온도계 — AI 감성 분석 서비스</title>
+
+  <!-- 웹 폰트 (Google Fonts) 사전 연결 및 불러오기 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- 스타일시트 4종 연결 -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/blobs.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+
+  <!-- 상단 바 -->
+  <header class="topbar">
+    <a class="topbar__about" href="#card-guide">소개</a>
+    <h1 class="topbar__title">마음 온도계</h1>
+    <span class="topbar__spacer" aria-hidden="true"></span>
+  </header>
+
+  <!-- 메인 콘텐츠 영역: 세로로 배치된 5개의 블롭 카드 -->
+  <main class="page">
+
+    <!-- 카드 1: 노랑 구름 카드 / 서비스 제목 -->
+    <section class="card card--yellow" aria-labelledby="hero-title">
+      <h2 id="hero-title" class="card__title">마음 온도계</h2>
+      <p class="card__caption">문장을 쓰면 AI가 마음의 온도를 재줘요.</p>
+      <!-- 해바라기 표정 스티커 장식 -->
+      <svg class="sticker sticker--hero" aria-hidden="true">
+        <use href="/assets/faces.svg#face-positive" />
+      </svg>
+    </section>
+
+    <!-- 카드 2: 보라 물방울 카드 / 문장 입력 -->
+    <section class="card card--purple" id="card-input" aria-labelledby="input-title">
+      <!-- 오른쪽 위 눈알 장식 -->
+      <div class="eyeball" aria-hidden="true">
+        <div class="eyeball__pupil"></div>
+      </div>
+
+      <h2 id="input-title" class="card__title">써보기</h2>
+
+      <form id="analyze-form" novalidate>
+        <label for="text-input" class="visually-hidden">분석할 문장</label>
+        <textarea id="text-input" name="text" rows="4" maxlength="600"
+          placeholder="오늘 어땠는지 한 줄 써주세요"></textarea>
+        
+        <!-- 글자 수 카운터 -->
+        <p id="char-count" class="char-count" aria-live="off">0 / 500</p>
+        
+        <!-- 입력 오류 알약 박스 -->
+        <p id="input-error" class="field-error" role="alert" hidden></p>
+        
+        <!-- 분석하기 버튼 -->
+        <button id="submit-btn" type="submit" class="btn">분석하기</button>
+      </form>
+
+      <!-- 하단 떨어지는 물방울 장식 -->
+      <div class="drips" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </section>
+
+    <!-- 카드 3: 분홍 머그컵 카드 / 감성 분석 결과 -->
+    <section class="card card--pink" id="card-result" aria-labelledby="result-title">
+      <!-- 상단 흘러내리는 크림 장식 -->
+      <div class="cream-drips" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </div>
+
+      <h2 id="result-title" class="visually-hidden">분석 결과</h2>
+      
+      <!-- 결과 실시간 안내 영역 -->
+      <div id="result-area" aria-live="polite">
+        <p id="result-placeholder" class="card__title">*결과!&</p>
+        <p class="card__caption" id="result-caption">문장을 입력하면 여기에 결과가 나와요.</p>
+        <!-- 성공 결과 발생 시 자바스크립트로 아래 태그 생성 및 제어:
+             <p id="result-label" class="card__title result-label">긍정</p> -->
+      </div>
+
+      <!-- 서버/네트워크 오류 안내 박스 -->
+      <p id="server-error" class="server-error" role="alert" hidden></p>
+
+      <!-- 표정 스티커 (기본값: neutral) -->
+      <svg id="result-sticker" class="sticker sticker--result" aria-hidden="true">
+        <use href="/assets/faces.svg#face-neutral" />
+      </svg>
+    </section>
+
+    <!-- 카드 4: 주황 리본 카드 / 신뢰도 및 판단 이유 -->
+    <section class="card card--orange" aria-labelledby="detail-title">
+      <!-- 좌우 X자 리본 장식 -->
+      <div class="ribbon ribbon--left" aria-hidden="true"></div>
+      <div class="ribbon ribbon--right" aria-hidden="true"></div>
+
+      <h2 id="detail-title" class="card__title">이유</h2>
+
+      <!-- 신뢰도 퍼센트 및 프로그레스 바 -->
+      <div class="meter" hidden id="meter">
+        <p id="confidence-text" class="meter__text">신뢰도 0%</p>
+        <div class="meter__track" role="progressbar" aria-label="신뢰도"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="confidence-bar" class="meter__fill"></div>
+        </div>
+      </div>
+
+      <!-- 분석 이유 텍스트 -->
+      <p id="reason-text" class="reason">분석 결과가 나오면 신뢰도와 이유를 알려드려요.</p>
+    </section>
+
+    <!-- 카드 5: 청록 구름 카드 / 서비스 및 개인정보 안내 -->
+    <section class="card card--teal" id="card-guide" aria-labelledby="guide-title">
+      <h2 id="guide-title" class="card__title">안내</h2>
+      <p class="card__caption">
+        AI의 판단은 참고용이에요. 입력한 문장과 분석 결과는 서비스 개선을 위해 저장돼요.
+        개인정보나 비밀번호는 쓰지 마세요.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- 하단 저작권 푸터 -->
+  <footer class="footer">
+    <small>© 2026 마음 온도계</small>
+  </footer>
+
+  <!-- 메인 프론트엔드 자바스크립트 연결 -->
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
+

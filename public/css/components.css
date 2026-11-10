@@ -1,0 +1,188 @@
+/* public/css/components.css */
+/* 목적: 입력창, 버튼, 결과 텍스트, 프로그레스 바, 에러 알약 등 인터랙티브 컴포넌트 스타일을 정의합니다. */
+
+/* ==========================================================================
+   입력 폼 및 텍스트에어리어 (#analyze-form, textarea)
+   ========================================================================== */
+#analyze-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#text-input {
+  width: 100%;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 4px solid var(--ink);
+  border-radius: 24px;
+  padding: 16px;
+  resize: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#text-input:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6);
+}
+
+/* 글자 수 카운터 */
+.char-count {
+  width: 100%;
+  text-align: right;
+  font-size: var(--fs-small);
+  color: var(--ink);
+  padding-right: 8px;
+}
+
+.char-count--exceeded {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   분석하기 버튼 (.btn)
+   ========================================================================== */
+.btn {
+  background-color: var(--yellow);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  border: 4px solid var(--ink);
+  border-radius: var(--radius-ui);
+  padding: 12px 36px;
+  min-height: 52px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
+  user-select: none;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn:focus-visible {
+  outline: 4px solid var(--paper);
+  outline-offset: 3px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   에러 알약 박스 (.field-error, .server-error)
+   ========================================================================== */
+.field-error,
+.server-error {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: var(--radius-ui);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 에러 메시지 앞 '!' 느낌표 배지 */
+.field-error::before,
+.server-error::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: var(--error);
+  color: var(--paper);
+  font-weight: bold;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   분석 결과 표시 영역 (#result-area)
+   ========================================================================== */
+#result-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90px;
+}
+
+/* 결과 도착 시 톡 튀어나오는 스케일 애니메이션 */
+@keyframes popIn {
+  0%   { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.result-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-result);
+  animation: popIn 0.25s ease-out;
+}
+
+/* ==========================================================================
+   신뢰도 미터 프로그레스 바 (.meter)
+   ========================================================================== */
+.meter {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 14px;
+}
+
+.meter__text {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--ink);
+}
+
+.meter__track {
+  width: 100%;
+  height: 18px;
+  background-color: rgba(17, 17, 17, 0.25);
+  border-radius: var(--radius-ui);
+  overflow: hidden;
+  padding: 3px;
+}
+
+.meter__fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--paper);
+  border-radius: var(--radius-ui);
+  transition: width 0.6s ease;
+}
+
+/* 분석 이유 문장 스타일 (.reason) */
+.reason {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 28em;
+  color: var(--ink);
+}
+
