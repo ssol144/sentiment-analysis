@@ -102,6 +102,14 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* 오류가 없을 때(hidden이거나 내용이 없을 때)는 완벽하게 숨김 */
+.field-error[hidden],
+.server-error[hidden],
+.field-error:empty,
+.server-error:empty {
+  display: none !important;
+}
+
 /* 에러 메시지 앞 '!' 느낌표 배지 */
 .field-error::before,
 .server-error::before {
@@ -152,6 +160,10 @@
   align-items: center;
   gap: 8px;
   margin: 12px 0 14px;
+}
+
+.meter[hidden] {
+  display: none !important;
 }
 
 .meter__text {

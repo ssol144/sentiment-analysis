@@ -24,10 +24,12 @@ const progressBarTrack = document.querySelector(".meter__track");
 export function clearErrors() {
   if (inputError) {
     inputError.hidden = true;
+    inputError.style.display = "none";
     inputError.textContent = "";
   }
   if (serverError) {
     serverError.hidden = true;
+    serverError.style.display = "none";
     serverError.textContent = "";
   }
 }
@@ -84,7 +86,10 @@ export function showIdle() {
   }
 
   // 신뢰도 미터 숨김 및 이유 텍스트 초기화
-  if (meterArea) meterArea.hidden = true;
+  if (meterArea) {
+    meterArea.hidden = true;
+    meterArea.style.display = "none";
+  }
   if (confidenceBar) confidenceBar.style.width = "0%";
   if (reasonText) {
     reasonText.textContent = "분석 결과가 나오면 신뢰도와 이유를 알려드려요.";
@@ -117,7 +122,10 @@ export function showLoading() {
   }
 
   // 신뢰도 영역 숨김
-  if (meterArea) meterArea.hidden = true;
+  if (meterArea) {
+    meterArea.hidden = true;
+    meterArea.style.display = "none";
+  }
   if (reasonText) reasonText.textContent = "";
 }
 
@@ -147,23 +155,35 @@ export function showResult(result) {
     return;
   }
 
-  // 1. 결과 단어 표시 (textContent로 안전하게 삽입)
+  // 0~100 사이의 안전한 정수형 신뢰도 퍼센트 계산
+  const safeConfidence = Math.min(100, Math.max(0, isNaN(confidence) ? 0 : Math.round(confidence)));
+
+  // 1. 결과 단어 및 퍼센트 캡션 표시 (textContent로 안전하게 삽입)
   if (resultArea) {
     resultArea.replaceChildren();
+
+    // 메인 감성 라벨 ("긍정", "부정", "중립")
     const resultLabel = document.createElement("p");
     resultLabel.id = "result-label";
     resultLabel.className = "card__title result-label";
     resultLabel.textContent = SENTIMENT_LABELS[sentiment];
+
+    // 결과 카드(분홍 카드) 안에서도 몇 %인지 바로 확인할 수 있는 서브 캡션 추가
+    const resultCaption = document.createElement("p");
+    resultCaption.id = "result-caption";
+    resultCaption.className = "card__caption";
+    resultCaption.textContent = `확신도 ${safeConfidence}%`;
+
     resultArea.appendChild(resultLabel);
+    resultArea.appendChild(resultCaption);
   }
 
-  // 2. 표정 스티커 변경
+  // 2. 표정 스티커 변경 (긍정: 웃음, 부정: 찡그림, 중립: 무표정)
   if (resultStickerUse) {
     resultStickerUse.setAttribute("href", `/assets/faces.svg#${FACE_IDS[sentiment]}`);
   }
 
-  // 3. 신뢰도 숫자 및 프로그레스 바 표시
-  const safeConfidence = Math.min(100, Math.max(0, isNaN(confidence) ? 0 : confidence));
+  // 3. 신뢰도 숫자 및 프로그레스 바 게이지 표시 (카드 4: 주황 카드)
   if (confidenceText) {
     confidenceText.textContent = `신뢰도 ${safeConfidence}%`;
   }
@@ -175,6 +195,7 @@ export function showResult(result) {
   }
   if (meterArea) {
     meterArea.hidden = false;
+    meterArea.style.display = "flex"; // 확실하게 표시되도록 명시적 flex 지정
   }
 
   // 4. 분석 이유 표시
@@ -191,6 +212,7 @@ export function showInputError(message) {
   if (inputError) {
     inputError.textContent = message;
     inputError.hidden = false;
+    inputError.style.display = "inline-flex";
   }
   if (submitBtn) {
     submitBtn.disabled = false;
@@ -209,12 +231,14 @@ export function showServerError(message) {
   if (serverError) {
     serverError.textContent = message;
     serverError.hidden = false;
+    serverError.style.display = "inline-flex";
   }
   if (resultArea) {
     resultArea.replaceChildren();
   }
   if (meterArea) {
     meterArea.hidden = true;
+    meterArea.style.display = "none";
   }
   if (reasonText) {
     reasonText.textContent = "";
@@ -227,4 +251,3 @@ export function showServerError(message) {
     resultStickerSvg.classList.remove("sticker--wiggle");
   }
 }
-

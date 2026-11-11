@@ -5,6 +5,8 @@ node_modules/
 .env
 .env.local
 .env.*.local
+.env.*
+*.env
 
 # Vercel 빌드 및 캐시 디렉터리 제외
 .vercel/
