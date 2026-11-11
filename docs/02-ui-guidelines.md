@@ -146,7 +146,7 @@
   <section class="card card--pink" id="card-result" aria-labelledby="result-title">
     <h2 id="result-title" class="visually-hidden">분석 결과</h2>
     <div id="result-area" aria-live="polite">
-      <p id="result-placeholder" class="card__title">*결과!&</p>
+      <p id="result-placeholder" class="card__title">결과</p>
       <p class="card__caption" id="result-caption">문장을 입력하면 여기에 결과가 나와요.</p>
       <!-- 결과가 있을 때: <p id="result-label" class="card__title result-label">긍정</p> -->
     </div>
@@ -266,7 +266,7 @@
 
 | 상태 | 카드 3 (분홍) | 카드 4 (주황) | 버튼 |
 |---|---|---|---|
-| ① 처음 | "*결과!&" + 안내 문구 + 무표정 스티커 | 안내 문구만, 신뢰도 막대 숨김 | "분석하기" |
+| ① 처음 | "결과" + 안내 문구 + 무표정 스티커 | 안내 문구만, 신뢰도 막대 숨김 | "분석하기" |
 | ② 분석 중 | "분석 중이에요..." + 스티커 흔들림 | 이전 결과 지움 | "분석 중..." (비활성) |
 | ③ 성공 | 결과 단어 + 해당 표정 스티커 | 신뢰도 숫자·막대 + 이유 | "분석하기" |
 | ④ 입력 오류 | 변화 없음 | 변화 없음 | 보라 카드 안 `#input-error`에 메시지 |

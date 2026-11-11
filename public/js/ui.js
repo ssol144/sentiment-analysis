@@ -66,7 +66,7 @@ export function showIdle() {
     const placeholder = document.createElement("p");
     placeholder.id = "result-placeholder";
     placeholder.className = "card__title";
-    placeholder.textContent = "*결과!&";
+    placeholder.textContent = "결과";
 
     const caption = document.createElement("p");
     caption.id = "result-caption";

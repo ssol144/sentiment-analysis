@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,8 @@
   <!-- 웹 폰트 (Google Fonts) 사전 연결 및 불러오기 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+    rel="stylesheet">
 
   <!-- 스타일시트 4종 연결 -->
   <link rel="stylesheet" href="/css/tokens.css">
@@ -16,6 +18,7 @@
   <link rel="stylesheet" href="/css/blobs.css">
   <link rel="stylesheet" href="/css/components.css">
 </head>
+
 <body>
 
   <!-- 상단 바 -->
@@ -49,15 +52,14 @@
 
       <form id="analyze-form" novalidate>
         <label for="text-input" class="visually-hidden">분석할 문장</label>
-        <textarea id="text-input" name="text" rows="4" maxlength="600"
-          placeholder="오늘 어땠는지 한 줄 써주세요"></textarea>
-        
+        <textarea id="text-input" name="text" rows="4" maxlength="600" placeholder="오늘 어땠는지 한 줄 써주세요"></textarea>
+
         <!-- 글자 수 카운터 -->
         <p id="char-count" class="char-count" aria-live="off">0 / 500</p>
-        
+
         <!-- 입력 오류 알약 박스 -->
         <p id="input-error" class="field-error" role="alert" hidden></p>
-        
+
         <!-- 분석하기 버튼 -->
         <button id="submit-btn" type="submit" class="btn">분석하기</button>
       </form>
@@ -76,10 +78,10 @@
       </div>
 
       <h2 id="result-title" class="visually-hidden">분석 결과</h2>
-      
+
       <!-- 결과 실시간 안내 영역 -->
       <div id="result-area" aria-live="polite">
-        <p id="result-placeholder" class="card__title">*결과!&</p>
+        <p id="result-placeholder" class="card__title">결과</p>
         <p class="card__caption" id="result-caption">문장을 입력하면 여기에 결과가 나와요.</p>
         <!-- 성공 결과 발생 시 자바스크립트로 아래 태그 생성 및 제어:
              <p id="result-label" class="card__title result-label">긍정</p> -->
@@ -105,8 +107,8 @@
       <!-- 신뢰도 퍼센트 및 프로그레스 바 -->
       <div class="meter" hidden id="meter">
         <p id="confidence-text" class="meter__text">신뢰도 0%</p>
-        <div class="meter__track" role="progressbar" aria-label="신뢰도"
-             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="meter__track" role="progressbar" aria-label="신뢰도" aria-valuemin="0" aria-valuemax="100"
+          aria-valuenow="0">
           <div id="confidence-bar" class="meter__fill"></div>
         </div>
       </div>
@@ -134,5 +136,5 @@
   <!-- 메인 프론트엔드 자바스크립트 연결 -->
   <script type="module" src="/js/main.js"></script>
 </body>
-</html>
 
+</html>
